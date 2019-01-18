@@ -1,9 +1,13 @@
 #ifndef __COMPAT_H__
 #define __COMPAT_H__
 
+#pragma warning(disable:4005)
+
 #define strcasecmp		stricmp
 #define strncasecmp		strnicmp
+#if defined(_MSC_VER) && (_MSC_VER < 1900)
 #define snprintf		_snprintf
+#endif
 #define snwprintf		_snwprintf
 
 #ifndef __cplusplus

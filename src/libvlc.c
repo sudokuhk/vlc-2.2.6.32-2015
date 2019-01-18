@@ -83,6 +83,29 @@
  *****************************************************************************/
 static void GetFilenames  ( libvlc_int_t *, unsigned, const char *const [] );
 
+#if _MSC_VER >= 1900
+#pragma comment(lib, "legacy_stdio_definitions.lib")
+
+_ACRTIMP_ALT FILE* __cdecl __acrt_iob_func(unsigned _Ix);
+
+FILE* __cdecl __iob_func(unsigned i) {
+	return __acrt_iob_func(i);
+}
+
+FILE * __cdecl _imp___iob(unsigned i) {
+	return __acrt_iob_func(i);
+}
+
+int __cdecl _imp____mb_cur_max()
+{
+	return MB_CUR_MAX;
+}
+
+int _get_output_format(void) {
+	return 0;
+}
+#endif
+
 /**
  * Allocate a blank libvlc instance, also setting the exit handler.
  * Vlc's threading system must have been initialized first
